@@ -51,4 +51,7 @@ export class Personagens{
     getNome():string {
         return this.nome;
     }
+    getHP() {
+    return this.hp;
+    }
 }

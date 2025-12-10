@@ -9,3 +9,4 @@ vilao.mostrarStatus();
 
 const batalha = new Batalha(heroi, vilao);
 batalha.iniciar();
+
