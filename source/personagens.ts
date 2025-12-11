@@ -1,10 +1,10 @@
 export class Personagem {
-    protected nome: string;
-    protected hp: number;
-    protected ataque: number;
-    protected defesa: number;
-    protected velocidade: number;
-    protected poderEspecial: string;
+    private nome: string;
+    private hp: number;
+    private ataque: number;
+    private defesa: number;
+    private velocidade: number;
+    private poderEspecial: string;
 
     constructor(nome: string, hp: number, atk: number, def: number, vel: number, poder: string) {
         this.nome = nome;
@@ -74,18 +74,4 @@ Poder Especial: ${this.poderEspecial}`);
     
 }
 
-export class HeroiGuitarra extends Personagem {
-    constructor() {
-        super("Iallen", 120, 25, 10, 20, "Poder da Guitarra");
-    }
-}
 
-// Teste
-const heroi = new HeroiGuitarra();
-const vilao = new Personagem("Sekef", 100, 20, 8, 15, "Controle Mental");
-
-heroi.mostrarStatus();
-vilao.mostrarStatus();
-
-heroi.atacar(vilao);
-heroi.usarPoderEspecial(vilao);
