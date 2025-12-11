@@ -1,0 +1,16 @@
+{
+  "name": "ifpi-legends",
+  "version": "1.0.0",
+  "description": "",
+  "source": "./source/index.html",
+  "scripts": {
+   "start": "parcel source/index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.16.3",
+    "typescript": "^5.9.3"
+  }
+}
