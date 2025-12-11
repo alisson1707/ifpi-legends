@@ -1,4 +1,4 @@
-import { Personagens } from "./personagens";
+import { Personagens } from "../personagens";
 
 export class Batalha {
     constructor(private p1: Personagens, private p2: Personagens) {}
