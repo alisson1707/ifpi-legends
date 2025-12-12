@@ -21,12 +21,13 @@ const personagensDisponiveis: Record<string, () => Personagem> = {
   maylon: () => new Maylon(),
 };
 
-// Pegando elementos do HTML
-const select = document.getElementById("personagem") as HTMLSelectElement;
+// Pegando elementos do HTML (AGORA DOIS SELECTS)
+const select1 = document.getElementById("personagem1") as HTMLSelectElement;
+const select2 = document.getElementById("personagem2") as HTMLSelectElement;
 const btn = document.getElementById("iniciar") as HTMLButtonElement;
 const log = document.getElementById("log") as HTMLDivElement;
 
-// Função para escrever no log da página
+// Função para escrever no log
 function escreverLog(msg: string) {
   const p = document.createElement("p");
   p.textContent = msg;
@@ -34,7 +35,17 @@ function escreverLog(msg: string) {
   log.scrollTop = log.scrollHeight;
 }
 
-// Classe que adapta a Batalha para exibir HTML
+// Impedir personagens iguais
+function bloquearIgual() {
+  if (select1.value === select2.value) {
+    alert("Os personagens não podem ser iguais! Escolha outro.");
+    select2.selectedIndex = 0;
+  }
+}
+select1.addEventListener("change", bloquearIgual);
+select2.addEventListener("change", bloquearIgual);
+
+// Classe de batalha com exibição no HTML
 class BatalhaHTML extends Batalha {
   iniciar(): void {
     escreverLog("=== BATALHA INICIADA ===");
@@ -76,47 +87,32 @@ class BatalhaHTML extends Batalha {
   }
 }
 
-// NOVA LÓGICA DO BOTÃO (MODO TORNEIO)
+// NOVA LÓGICA DO BOTÃO (permitindo modo 1x1 manual)
 btn.addEventListener("click", () => {
   log.innerHTML = "";
 
-  const nomeJogador = select.value;
-  const jogadorFactory = personagensDisponiveis[nomeJogador];
+  const nomeJogador = select1.value;
+  const nomeInimigo = select2.value;
 
-  if (!jogadorFactory) {
+  if (nomeJogador === nomeInimigo) {
+    alert("Escolha dois personagens diferentes!");
+    return;
+  }
+
+  const jogadorFactory = personagensDisponiveis[nomeJogador];
+  const inimigoFactory = personagensDisponiveis[nomeInimigo];
+
+  if (!jogadorFactory || !inimigoFactory) {
     escreverLog("Erro: personagem inválido.");
     return;
   }
 
   const jogador = jogadorFactory();
+  const inimigo = inimigoFactory();
 
-  const listaInimigos = Object.keys(personagensDisponiveis)
-    .filter((nome) => nome !== nomeJogador)
-    .map((nome) => personagensDisponiveis[nome]);
+  escreverLog(`👤 Jogador escolheu: ${jogador.getNome()}`);
+  escreverLog(`👹 Inimigo escolhido: ${inimigo.getNome()}`);
 
-  let inimigoAtual = listaInimigos.shift()!();
-
-  function proximaBatalha() {
-    escreverLog("=================================");
-    escreverLog(`👹 Inimigo atual: ${inimigoAtual.getNome()}`);
-
-    const batalha = new BatalhaHTML(jogador, inimigoAtual);
-    batalha.iniciar();
-
-    if (!jogador.estaVivo()) {
-      escreverLog("💀 Você perdeu! Fim da campanha.");
-      return;
-    }
-
-    if (listaInimigos.length === 0) {
-      escreverLog("🎉 Você derrotou TODOS os adversários!");
-      return;
-    }
-
-    inimigoAtual = listaInimigos.shift()!();
-    escreverLog("Próxima batalha iniciando...");
-    proximaBatalha();
-  }
-
-  proximaBatalha();
+  const batalha = new BatalhaHTML(jogador, inimigo);
+  batalha.iniciar();
 });
