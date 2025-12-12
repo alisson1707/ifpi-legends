@@ -25,12 +25,13 @@ Velocidade: ${this.velocidade}
 Poder Especial: ${this.poderEspecial}`);
     }
 
-    atacar(alvo: Personagem): void {
-        const dano = this.calcularDano(alvo);
-        alvo.receberDano(dano);
-        console.log(`${this.nome} atacou ${alvo.getNome()} causando ${dano} de dano!`);
-    }
+    atacar(alvo: Personagem): string {
+    const dano = this.calcularDano(alvo);
+    alvo.receberDano(dano);
+    console.log(`${this.nome} atacou ${alvo.getNome()} causando ${dano} de dano!`);
 
+    return this.poderEspecial; 
+}
     private calcularDano(alvo: Personagem): number {
         const bruto = this.ataque - alvo.defesa;
         return bruto > 0 ? bruto : 1; // sempre pelo menos 1 de dano
@@ -55,7 +56,7 @@ Poder Especial: ${this.poderEspecial}`);
         return this.nome;
     }
 
-    getHp(): number {   // <-- agora o nome está correto para funcionar na batalha!
+    getHp(): number {   
         return this.hp;
     }
 

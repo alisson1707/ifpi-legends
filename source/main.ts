@@ -39,13 +39,19 @@ function batalhaSimples(p1: Personagem, p2: Personagem, logContainer: HTMLDivEle
         const primeiro = p1.getVelocidade() >= p2.getVelocidade() ? p1 : p2;
         const segundo = primeiro === p1 ? p2 : p1;
 
-        primeiro.atacar(segundo);
-        escreverLog(`${primeiro.getNome()} atacou ${segundo.getNome()}! HP restante: ${segundo.getHp()}`);
+       const ataque1 = primeiro.atacar(segundo);
+      escreverLog(
+        `${primeiro.getNome()} atacou usando ${ataque1}! HP de ${segundo.getNome()}: ${segundo.getHp()}`
+      );
 
         if (!segundo.estaVivo()) break;
 
         segundo.atacar(primeiro);
-        escreverLog(`${segundo.getNome()} atacou ${primeiro.getNome()}! HP restante: ${primeiro.getHp()}`);
+
+ const ataque2 = segundo.atacar(primeiro);
+      escreverLog(
+        `${segundo.getNome()} atacou usando ${ataque2}! HP de ${primeiro.getNome()}: ${primeiro.getHp()}`
+      );
         turno++;
     }
 
