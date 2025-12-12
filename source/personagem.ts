@@ -30,7 +30,7 @@ Poder Especial: ${this.poderEspecial}`);
     alvo.receberDano(dano);
     console.log(`${this.nome} atacou ${alvo.getNome()} causando ${dano} de dano!`);
 
-    return this.poderEspecial; // ← ISTO PERMITE MOSTRAR O NOME DO ATAQUE NO FRONT
+    return this.poderEspecial; 
 }
     private calcularDano(alvo: Personagem): number {
         const bruto = this.ataque - alvo.defesa;
@@ -56,7 +56,7 @@ Poder Especial: ${this.poderEspecial}`);
         return this.nome;
     }
 
-    getHp(): number {   // <-- agora o nome está correto para funcionar na batalha!
+    getHp(): number {   
         return this.hp;
     }
 
