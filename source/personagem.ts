@@ -33,7 +33,7 @@ Poder Especial: ${this.poderEspecial}`);
 
     private calcularDano(alvo: Personagem): number {
         const bruto = this.ataque - alvo.defesa;
-        return bruto > 0 ? bruto : 1; // sempre causa pelo menos 1 de dano
+        return bruto > 0 ? bruto : 1; // sempre pelo menos 1 de dano
     }
 
     receberDano(valor: number): void {
@@ -46,6 +46,7 @@ Poder Especial: ${this.poderEspecial}`);
         return this.hp > 0;
     }
 
+    // === GETTERS CORRETOS ===
     getVelocidade(): number {
         return this.velocidade;
     }
@@ -54,24 +55,21 @@ Poder Especial: ${this.poderEspecial}`);
         return this.nome;
     }
 
-    getHP(): number {
+    getHp(): number {   // <-- agora o nome está correto para funcionar na batalha!
         return this.hp;
     }
+
     getAtaque(): number {
         return this.ataque;
     }
-     getDefesa(): number {
+
+    getDefesa(): number {
         return this.defesa;
-     }
+    }
 
     usarPoderEspecial(alvo: Personagem): void {
-        const dano = this.ataque * 1.5 + this.velocidade * 0.5 - alvo.defesa * 0.3;
-        const danoFinal = Math.max(this.ataque - alvo.defesa, 1); // sempre pelo menos 1
+        const danoFinal = Math.max(this.ataque - alvo.defesa, 1);
         alvo.receberDano(danoFinal);
         console.log(`${this.nome} usou ${this.poderEspecial} em ${alvo.getNome()}, causando ${danoFinal} de dano!`);
     }
-
-    
 }
-
-

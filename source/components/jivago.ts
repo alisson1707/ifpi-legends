@@ -1,10 +1,14 @@
-import { Personagem } from "../personagens";
+import { Personagem } from "../personagem";
 
-export const Jivago = new Personagem(
-    "Jivago",
-    85,
-    30,
-    6,
-    10,
-    "Super força"
-);
+export class Jivago extends Personagem {
+    constructor() {
+        super(
+            "Jivago",
+            85,    // hp
+            30,    // ataque
+            6,     // defesa
+            10,    // velocidade
+            "Super força"
+        );
+    }
+}

@@ -1,10 +1,14 @@
-import { Personagem } from "../personagens";
+import { Personagem } from "../personagem";
 
-export const Maykol = new Personagem(
-    "Maykol",
-    90,
-    35,
-    5,
-    10,
-    "Super Hack"
-);
+export class Maykol extends Personagem {
+    constructor() {
+        super(
+            "Maykol",
+            90,
+            35,
+            5,
+            10,
+            "Super Hack"
+        );
+    }
+}

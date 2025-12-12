@@ -1,10 +1,14 @@
-import { Personagem } from "../personagens";
+import { Personagem } from "../personagem";
 
-export const Maylon = new Personagem(
-    "Maylon",
-    85,
-    38,
-    6,
-    14,
-    "Explosão Eletrica"
-);
+export class Maylon extends Personagem {
+    constructor() {
+        super(
+            "Maylon",
+            85,
+            38,
+            6,
+            14,
+            "Explosão Elétrica"
+        );
+    }
+}
