@@ -8,7 +8,7 @@ import { Maykol } from "./components/maykol";
 import { Maylon } from "./components/maylon";
 
 import { Batalha } from "./batalhas/batalhaUm";
-import { Personagem } from "./personagem"; // arquivo correto
+import { Personagem } from "./personagem";
 
 // Dicionário com os personagens jogáveis
 const personagensDisponiveis: Record<string, () => Personagem> = {
@@ -53,7 +53,6 @@ class BatalhaHTML extends Batalha {
 
       const segundo = primeiro === jogador ? inimigo : jogador;
 
-      // Primeiro ataca
       primeiro.atacar(segundo);
       escreverLog(
         `${primeiro.getNome()} atacou ${segundo.getNome()}! HP Restante: ${segundo.getHp()}`
@@ -61,7 +60,6 @@ class BatalhaHTML extends Batalha {
 
       if (!segundo.estaVivo()) break;
 
-      // Segundo ataca
       segundo.atacar(primeiro);
       escreverLog(
         `${segundo.getNome()} atacou ${primeiro.getNome()}! HP Restante: ${primeiro.getHp()}`
@@ -78,20 +76,47 @@ class BatalhaHTML extends Batalha {
   }
 }
 
-// Evento do botão
+// NOVA LÓGICA DO BOTÃO (MODO TORNEIO)
 btn.addEventListener("click", () => {
-  log.innerHTML = ""; // limpa log
+  log.innerHTML = "";
 
-  const escolhidos = personagensDisponiveis[select.value];
+  const nomeJogador = select.value;
+  const jogadorFactory = personagensDisponiveis[nomeJogador];
 
-  if (!escolhidos) {
+  if (!jogadorFactory) {
     escreverLog("Erro: personagem inválido.");
     return;
   }
 
-  const jogador = escolhidos(); // personagem escolhido no select
-  const inimigo = new Iallen(); // inimigo fixo (pode trocar depois)
+  const jogador = jogadorFactory();
 
-  const batalha = new BatalhaHTML(jogador, inimigo);
-  batalha.iniciar();
+  const listaInimigos = Object.keys(personagensDisponiveis)
+    .filter((nome) => nome !== nomeJogador)
+    .map((nome) => personagensDisponiveis[nome]);
+
+  let inimigoAtual = listaInimigos.shift()!();
+
+  function proximaBatalha() {
+    escreverLog("=================================");
+    escreverLog(`👹 Inimigo atual: ${inimigoAtual.getNome()}`);
+
+    const batalha = new BatalhaHTML(jogador, inimigoAtual);
+    batalha.iniciar();
+
+    if (!jogador.estaVivo()) {
+      escreverLog("💀 Você perdeu! Fim da campanha.");
+      return;
+    }
+
+    if (listaInimigos.length === 0) {
+      escreverLog("🎉 Você derrotou TODOS os adversários!");
+      return;
+    }
+
+    inimigoAtual = listaInimigos.shift()!();
+    escreverLog("Próxima batalha iniciando...");
+    proximaBatalha();
+  }
+
+  proximaBatalha();
 });
