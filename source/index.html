@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Torneio de Personagens</title>
   <style>
     body {
@@ -10,6 +10,31 @@
       color: #fff;
       padding: 20px;
       margin: 0;
+    }
+
+    #titulo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    #titulo h1 {
+      font-size: 2.5em;
+      margin: 0;
+      color: #ffd700; /* dourado para destaque */
+      text-shadow: 0 0 8px #ff4b5c;
+    }
+
+    #titulo h2 {
+      font-size: 1.5em;
+      margin: 5px 0 0 0;
+      color: #ff4b5c;
+      font-weight: normal;
+    }
+
+    #centralizar {
+      text-align: center;
+      align-items: center;
+      justify-content: center;
     }
 
     h3 {
@@ -111,30 +136,36 @@
   </style>
 </head>
 <body>
-  <h3>Escolha os personagens iniciais</h3>
-  <select id="personagem1">
-    <option value="sekef">Sekef</option>
-    <option value="iallen">Iallen</option>
-    <option value="jeferson">Jeferson</option>
-    <option value="jivago">Jivago</option>
-    <option value="marcos">Marcos</option>
-    <option value="maykol">Maykol</option>
-    <option value="maylon">Maylon</option>
-  </select>
+  <div id="titulo">
+    <h1>Seja bem-vindo ao IFPI Legends</h1>
+    <h2>Pronto para a batalha?</h2>
+  </div>
+  <div id="centralizar">
+    <h3>Escolha os personagens iniciais</h3>
+    <select id="personagem1">
+      <option value="sekef">Sekef</option>
+      <option value="iallen">Iallen</option>
+      <option value="jeferson">Jeferson</option>
+      <option value="jivago">Jivago</option>
+      <option value="marcos">Marcos</option>
+      <option value="maykol">Maykol</option>
+      <option value="maylon">Maylon</option>
+    </select>
 
-  <select id="personagem2">
-    <option value="sekef">Sekef</option>
-    <option value="iallen">Iallen</option>
-    <option value="jeferson">Jeferson</option>
-    <option value="jivago">Jivago</option>
-    <option value="marcos">Marcos</option>
-    <option value="maykol">Maykol</option>
-    <option value="maylon">Maylon</option>
-  </select>
+    <select id="personagem2">
+      <option value="sekef">Sekef</option>
+      <option value="iallen">Iallen</option>
+      <option value="jeferson">Jeferson</option>
+      <option value="jivago">Jivago</option>
+      <option value="marcos">Marcos</option>
+      <option value="maykol">Maykol</option>
+      <option value="maylon">Maylon</option>
+    </select>
 
-  <button id="iniciar">Iniciar Torneio</button>
+    <button id="iniciar">Iniciar Torneio</button>
 
-  <h3>Campos de Batalha</h3>
+    <h3>Campos de Batalha</h3>
+    </div>
   <div id="campos-batalha"></div>
 
   <script type="module" src="./main.ts"></script>
