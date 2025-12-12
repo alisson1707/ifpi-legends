@@ -12,9 +12,10 @@ const btn = document.getElementById("iniciar") as HTMLButtonElement;
 const select1 = document.getElementById("personagem1") as HTMLSelectElement;
 const select2 = document.getElementById("personagem2") as HTMLSelectElement;
 
-// Cria log separado
+// Cria container de log para cada batalha
 function criarLog(titulo: string): HTMLDivElement {
     const container = document.createElement("div");
+    container.className = "batalha";
     const h4 = document.createElement("h4");
     h4.textContent = titulo;
     container.appendChild(h4);
@@ -22,9 +23,46 @@ function criarLog(titulo: string): HTMLDivElement {
     return container;
 }
 
+// Cria barra de HP para cada personagem
+function criarBarraHp(personagem: Personagem, container: HTMLDivElement): HTMLDivElement {
+    const hpContainer = document.createElement("div");
+    hpContainer.className = "hp-container";
+
+    const label = document.createElement("span");
+    label.className = "hp-label";
+    label.textContent = personagem.getNome();
+    hpContainer.appendChild(label);
+
+    const barra = document.createElement("div");
+    barra.className = "hp-bar";
+
+    const barraInterna = document.createElement("div");
+    barraInterna.className = "hp-bar-inner";
+    barraInterna.style.width = "100%";
+    barra.appendChild(barraInterna);
+
+    hpContainer.appendChild(barra);
+    container.appendChild(hpContainer);
+
+    return barraInterna;
+}
+
+// Atualiza visualmente a barra de HP
+function atualizarBarraHp(personagem: Personagem, barra: HTMLDivElement) {
+    const porcentagem = (personagem.getHp() / personagem.getHpMax()) * 100;
+    barra.style.width = `${porcentagem}%`;
+    if (porcentagem > 50) barra.style.backgroundColor = "#4caf50";
+    else if (porcentagem > 20) barra.style.backgroundColor = "orange";
+    else barra.style.backgroundColor = "red";
+}
+
 // Batalha 1x1
 function batalhaSimples(p1: Personagem, p2: Personagem, logContainer: HTMLDivElement): Personagem {
     let turno = 1;
+
+    const barraP1 = criarBarraHp(p1, logContainer);
+    const barraP2 = criarBarraHp(p2, logContainer);
+
     function escreverLog(msg: string) {
         const p = document.createElement("p");
         p.textContent = msg;
@@ -39,19 +77,18 @@ function batalhaSimples(p1: Personagem, p2: Personagem, logContainer: HTMLDivEle
         const primeiro = p1.getVelocidade() >= p2.getVelocidade() ? p1 : p2;
         const segundo = primeiro === p1 ? p2 : p1;
 
-       const ataque1 = primeiro.atacar(segundo);
-      escreverLog(
-        `${primeiro.getNome()} atacou usando ${ataque1}! HP de ${segundo.getNome()}: ${segundo.getHp()}`
-      );
+        // Ataque do primeiro
+        const ataque1 = primeiro.atacar(segundo);
+        escreverLog(`${primeiro.getNome()} atacou usando ${ataque1}! HP de ${segundo.getNome()}: ${segundo.getHp()}`);
+        atualizarBarraHp(segundo, barraP2);
 
         if (!segundo.estaVivo()) break;
 
-        segundo.atacar(primeiro);
+        // Ataque do segundo
+        const ataque2 = segundo.atacar(primeiro);
+        escreverLog(`${segundo.getNome()} atacou usando ${ataque2}! HP de ${primeiro.getNome()}: ${primeiro.getHp()}`);
+        atualizarBarraHp(primeiro, barraP1);
 
- const ataque2 = segundo.atacar(primeiro);
-      escreverLog(
-        `${segundo.getNome()} atacou usando ${ataque2}! HP de ${primeiro.getNome()}: ${primeiro.getHp()}`
-      );
         turno++;
     }
 
@@ -85,7 +122,7 @@ function torneioSimultaneo(participantes: Personagem[]) {
     criarLog("Campeão").appendChild(document.createTextNode(`🏆 CAMPEÃO FINAL: ${competidores[0].getNome()} 🏆`));
 }
 
-// Função para mapear o select para classe
+// Mapeia selects para classes de personagens
 const mapaPersonagens: Record<string, () => Personagem> = {
     sekef: () => new Sekef(),
     iallen: () => new Iallen(),
@@ -105,13 +142,11 @@ btn.addEventListener("click", () => {
         return;
     }
 
-    // Personagens escolhidos
     const escolhidos: Personagem[] = [
         mapaPersonagens[select1.value](),
         mapaPersonagens[select2.value]()
     ];
 
-    // Adiciona automaticamente os demais que não foram escolhidos
     for (const key in mapaPersonagens) {
         if (key !== select1.value && key !== select2.value) {
             escolhidos.push(mapaPersonagens[key]());
