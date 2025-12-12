@@ -46,8 +46,6 @@ function batalhaSimples(p1: Personagem, p2: Personagem, logContainer: HTMLDivEle
 
         if (!segundo.estaVivo()) break;
 
-        segundo.atacar(primeiro);
-
  const ataque2 = segundo.atacar(primeiro);
       escreverLog(
         `${segundo.getNome()} atacou usando ${ataque2}! HP de ${primeiro.getNome()}: ${primeiro.getHp()}`
