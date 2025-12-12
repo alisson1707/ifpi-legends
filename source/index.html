@@ -1,62 +1,141 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mini RPG</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-  <h1>Seja bem-vindo ao IFPI Legends</h1>
-
-  <div class="select-area">
-
-    <!-- Seleção do Jogador -->
-    <label for="personagem1">Selecione seu personagem:</label>
-    <select id="personagem1">
-      <option value="sekef">Sekef</option>
-      <option value="iallen">Iallen</option>
-      <option value="jeferson">Jeferson</option>
-      <option value="jivago">Jivago</option>
-      <option value="marcos">Marcos</option>
-      <option value="maykol">Maykol</option>
-      <option value="maylon">Maylon</option>
-    </select>
-
-    <!-- Seleção do Inimigo -->
-    <label for="personagem2">Selecione o inimigo:</label>
-    <select id="personagem2">
-      <option value="sekef">Sekef</option>
-      <option value="iallen">Iallen</option>
-      <option value="jeferson">Jeferson</option>
-      <option value="jivago">Jivago</option>
-      <option value="marcos">Marcos</option>
-      <option value="maykol">Maykol</option>
-      <option value="maylon">Maylon</option>
-    </select>
-
-    <button id="iniciar">Iniciar Batalha</button>
-  </div>
-
-  <h2>Log da Batalha ⚔️</h2>
-  <div id="log" class="log-container"></div>
-
-  <script>
-    // Bloquear escolha igual nos dois selects
-    const select1 = document.getElementById("personagem1");
-    const select2 = document.getElementById("personagem2");
-
-    function bloquearIgual() {
-      if (select1.value === select2.value) {
-        alert("Os personagens não podem ser iguais! Escolha outro.");
-        select2.selectedIndex = 0; // Reseta o inimigo
-      }
+  <title>Torneio de Personagens</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #1b1b2f;
+      color: #fff;
+      padding: 20px;
+      margin: 0;
     }
 
-    select1.addEventListener("change", bloquearIgual);
-    select2.addEventListener("change", bloquearIgual);
-  </script>
+    h3 {
+      margin-bottom: 10px;
+    }
+
+    select {
+      padding: 5px 10px;
+      margin-right: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 8px 16px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      background-color: #ff4b5c;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff1f3a;
+    }
+
+    #campos-batalha {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .batalha {
+      background-color: #2b2b44;
+      border: 2px solid #444;
+      border-radius: 10px;
+      padding: 10px;
+      width: 320px;
+      min-height: 250px;
+      overflow-y: auto;
+      box-shadow: 0 0 10px #000;
+      position: relative;
+    }
+
+    .batalha h4 {
+      margin-top: 0;
+      font-size: 18px;
+      text-align: center;
+      color: #ffd700;
+      border-bottom: 1px solid #555;
+      padding-bottom: 5px;
+    }
+
+    .log-msg {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    .log-jogador {
+      color: #4caf50;
+      font-weight: bold;
+    }
+
+    .log-inimigo {
+      color: #f44336;
+      font-weight: bold;
+    }
+
+    .hp-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      gap: 5px;
+    }
+
+    .hp-label {
+      width: 80px;
+    }
+
+    .hp-bar {
+      height: 15px;
+      border-radius: 5px;
+      background-color: #555;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .hp-bar-inner {
+      height: 100%;
+      width: 100%;
+      background-color: #4caf50;
+      transition: width 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <h3>Escolha os personagens iniciais</h3>
+  <select id="personagem1">
+    <option value="sekef">Sekef</option>
+    <option value="iallen">Iallen</option>
+    <option value="jeferson">Jeferson</option>
+    <option value="jivago">Jivago</option>
+    <option value="marcos">Marcos</option>
+    <option value="maykol">Maykol</option>
+    <option value="maylon">Maylon</option>
+  </select>
+
+  <select id="personagem2">
+    <option value="sekef">Sekef</option>
+    <option value="iallen">Iallen</option>
+    <option value="jeferson">Jeferson</option>
+    <option value="jivago">Jivago</option>
+    <option value="marcos">Marcos</option>
+    <option value="maykol">Maykol</option>
+    <option value="maylon">Maylon</option>
+  </select>
+
+  <button id="iniciar">Iniciar Torneio</button>
+
+  <h3>Campos de Batalha</h3>
+  <div id="campos-batalha"></div>
 
   <script type="module" src="./main.ts"></script>
 </body>
