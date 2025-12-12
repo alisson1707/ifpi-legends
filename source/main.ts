@@ -1,4 +1,3 @@
-// interação
 import { Sekef } from "./components/sekef";
 import { Iallen } from "./components/iallen";
 import { Jeferson } from "./components/jeferson";
@@ -6,113 +5,118 @@ import { Jivago } from "./components/jivago";
 import { Marcos } from "./components/marcos";
 import { Maykol } from "./components/maykol";
 import { Maylon } from "./components/maylon";
-
-import { Batalha } from "./batalhas/batalhaUm";
 import { Personagem } from "./personagem";
 
-// Dicionário com os personagens jogáveis
-const personagensDisponiveis: Record<string, () => Personagem> = {
-  sekef: () => new Sekef(),
-  iallen: () => new Iallen(),
-  jeferson: () => new Jeferson(),
-  jivago: () => new Jivago(),
-  marcos: () => new Marcos(),
-  maykol: () => new Maykol(),
-  maylon: () => new Maylon(),
-};
-
-// Pegando elementos do HTML (AGORA DOIS SELECTS)
+const camposBatalhaDiv = document.getElementById("campos-batalha") as HTMLDivElement;
+const btn = document.getElementById("iniciar") as HTMLButtonElement;
 const select1 = document.getElementById("personagem1") as HTMLSelectElement;
 const select2 = document.getElementById("personagem2") as HTMLSelectElement;
-const btn = document.getElementById("iniciar") as HTMLButtonElement;
-const log = document.getElementById("log") as HTMLDivElement;
 
-// Função para escrever no log
-function escreverLog(msg: string) {
-  const p = document.createElement("p");
-  p.textContent = msg;
-  log.appendChild(p);
-  log.scrollTop = log.scrollHeight;
+// Cria log separado
+function criarLog(titulo: string): HTMLDivElement {
+    const container = document.createElement("div");
+    const h4 = document.createElement("h4");
+    h4.textContent = titulo;
+    container.appendChild(h4);
+    camposBatalhaDiv.appendChild(container);
+    return container;
 }
 
-// Impedir personagens iguais
-function bloquearIgual() {
-  if (select1.value === select2.value) {
-    alert("Os personagens não podem ser iguais! Escolha outro.");
-    select2.selectedIndex = 0;
-  }
-}
-select1.addEventListener("change", bloquearIgual);
-select2.addEventListener("change", bloquearIgual);
-
-// Classe de batalha com exibição no HTML
-class BatalhaHTML extends Batalha {
-  iniciar(): void {
-    escreverLog("=== BATALHA INICIADA ===");
-
-    let jogador = this.getP1();
-    let inimigo = this.getP2();
+// Batalha 1x1
+function batalhaSimples(p1: Personagem, p2: Personagem, logContainer: HTMLDivElement): Personagem {
     let turno = 1;
-
-    while (jogador.estaVivo() && inimigo.estaVivo()) {
-      escreverLog(`--- TURNO ${turno} ---`);
-
-      const primeiro =
-        jogador.getVelocidade() >= inimigo.getVelocidade()
-          ? jogador
-          : inimigo;
-
-      const segundo = primeiro === jogador ? inimigo : jogador;
-
-      primeiro.atacar(segundo);
-      escreverLog(
-        `${primeiro.getNome()} atacou ${segundo.getNome()}! HP Restante: ${segundo.getHp()}`
-      );
-
-      if (!segundo.estaVivo()) break;
-
-      segundo.atacar(primeiro);
-      escreverLog(
-        `${segundo.getNome()} atacou ${primeiro.getNome()}! HP Restante: ${primeiro.getHp()}`
-      );
-
-      turno++;
+    function escreverLog(msg: string) {
+        const p = document.createElement("p");
+        p.textContent = msg;
+        logContainer.appendChild(p);
+        logContainer.scrollTop = logContainer.scrollHeight;
     }
 
-    const vencedor = jogador.estaVivo()
-      ? jogador.getNome()
-      : inimigo.getNome();
+    escreverLog(`🗡️ Batalha: ${p1.getNome()} VS ${p2.getNome()}`);
 
-    escreverLog(`=== ${vencedor} VENCEU! ===`);
-  }
+    while (p1.estaVivo() && p2.estaVivo()) {
+        escreverLog(`--- TURNO ${turno} ---`);
+        const primeiro = p1.getVelocidade() >= p2.getVelocidade() ? p1 : p2;
+        const segundo = primeiro === p1 ? p2 : p1;
+
+       const ataque1 = primeiro.atacar(segundo);
+      escreverLog(
+        `${primeiro.getNome()} atacou usando ${ataque1}! HP de ${segundo.getNome()}: ${segundo.getHp()}`
+      );
+
+        if (!segundo.estaVivo()) break;
+
+        segundo.atacar(primeiro);
+
+ const ataque2 = segundo.atacar(primeiro);
+      escreverLog(
+        `${segundo.getNome()} atacou usando ${ataque2}! HP de ${primeiro.getNome()}: ${primeiro.getHp()}`
+      );
+        turno++;
+    }
+
+    const vencedor = p1.estaVivo() ? p1 : p2;
+    escreverLog(`💥 Vencedor: ${vencedor.getNome()} 💥`);
+    return vencedor;
 }
 
-// NOVA LÓGICA DO BOTÃO (permitindo modo 1x1 manual)
+// Torneio simultâneo
+function torneioSimultaneo(participantes: Personagem[]) {
+    let rodada = 1;
+    let competidores = [...participantes];
+
+    while (competidores.length > 1) {
+        const vencedores: Personagem[] = [];
+
+        for (let i = 0; i < competidores.length; i += 2) {
+            if (i + 1 >= competidores.length) {
+                vencedores.push(competidores[i]);
+            } else {
+                const logDiv = criarLog(`Batalha: ${competidores[i].getNome()} VS ${competidores[i+1].getNome()}`);
+                const vencedor = batalhaSimples(competidores[i], competidores[i+1], logDiv);
+                vencedores.push(vencedor);
+            }
+        }
+
+        competidores = vencedores;
+        rodada++;
+    }
+
+    criarLog("Campeão").appendChild(document.createTextNode(`🏆 CAMPEÃO FINAL: ${competidores[0].getNome()} 🏆`));
+}
+
+// Função para mapear o select para classe
+const mapaPersonagens: Record<string, () => Personagem> = {
+    sekef: () => new Sekef(),
+    iallen: () => new Iallen(),
+    jeferson: () => new Jeferson(),
+    jivago: () => new Jivago(),
+    marcos: () => new Marcos(),
+    maykol: () => new Maykol(),
+    maylon: () => new Maylon()
+};
+
+// Botão iniciar
 btn.addEventListener("click", () => {
-  log.innerHTML = "";
+    camposBatalhaDiv.innerHTML = "";
 
-  const nomeJogador = select1.value;
-  const nomeInimigo = select2.value;
+    if (select1.value === select2.value) {
+        alert("Escolha personagens diferentes!");
+        return;
+    }
 
-  if (nomeJogador === nomeInimigo) {
-    alert("Escolha dois personagens diferentes!");
-    return;
-  }
+    // Personagens escolhidos
+    const escolhidos: Personagem[] = [
+        mapaPersonagens[select1.value](),
+        mapaPersonagens[select2.value]()
+    ];
 
-  const jogadorFactory = personagensDisponiveis[nomeJogador];
-  const inimigoFactory = personagensDisponiveis[nomeInimigo];
+    // Adiciona automaticamente os demais que não foram escolhidos
+    for (const key in mapaPersonagens) {
+        if (key !== select1.value && key !== select2.value) {
+            escolhidos.push(mapaPersonagens[key]());
+        }
+    }
 
-  if (!jogadorFactory || !inimigoFactory) {
-    escreverLog("Erro: personagem inválido.");
-    return;
-  }
-
-  const jogador = jogadorFactory();
-  const inimigo = inimigoFactory();
-
-  escreverLog(`👤 Jogador escolheu: ${jogador.getNome()}`);
-  escreverLog(`👹 Inimigo escolhido: ${inimigo.getNome()}`);
-
-  const batalha = new BatalhaHTML(jogador, inimigo);
-  batalha.iniciar();
+    torneioSimultaneo(escolhidos);
 });
