@@ -25,12 +25,13 @@ Velocidade: ${this.velocidade}
 Poder Especial: ${this.poderEspecial}`);
     }
 
-    atacar(alvo: Personagem): void {
-        const dano = this.calcularDano(alvo);
-        alvo.receberDano(dano);
-        console.log(`${this.nome} atacou ${alvo.getNome()} causando ${dano} de dano!`);
-    }
+    atacar(alvo: Personagem): string {
+    const dano = this.calcularDano(alvo);
+    alvo.receberDano(dano);
+    console.log(`${this.nome} atacou ${alvo.getNome()} causando ${dano} de dano!`);
 
+    return this.poderEspecial; // ← ISTO PERMITE MOSTRAR O NOME DO ATAQUE NO FRONT
+}
     private calcularDano(alvo: Personagem): number {
         const bruto = this.ataque - alvo.defesa;
         return bruto > 0 ? bruto : 1; // sempre pelo menos 1 de dano
