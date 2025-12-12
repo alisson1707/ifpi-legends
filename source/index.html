@@ -31,6 +31,12 @@
       font-weight: normal;
     }
 
+    #centralizar {
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+    }
+
     h3 {
       margin-bottom: 10px;
     }
@@ -134,31 +140,32 @@
     <h1>Seja bem-vindo ao IFPI Legends</h1>
     <h2>Pronto para a batalha?</h2>
   </div>
+  <div id="centralizar">
+    <h3>Escolha os personagens iniciais</h3>
+    <select id="personagem1">
+      <option value="sekef">Sekef</option>
+      <option value="iallen">Iallen</option>
+      <option value="jeferson">Jeferson</option>
+      <option value="jivago">Jivago</option>
+      <option value="marcos">Marcos</option>
+      <option value="maykol">Maykol</option>
+      <option value="maylon">Maylon</option>
+    </select>
 
-  <h3>Escolha os personagens iniciais</h3>
-  <select id="personagem1">
-    <option value="sekef">Sekef</option>
-    <option value="iallen">Iallen</option>
-    <option value="jeferson">Jeferson</option>
-    <option value="jivago">Jivago</option>
-    <option value="marcos">Marcos</option>
-    <option value="maykol">Maykol</option>
-    <option value="maylon">Maylon</option>
-  </select>
+    <select id="personagem2">
+      <option value="sekef">Sekef</option>
+      <option value="iallen">Iallen</option>
+      <option value="jeferson">Jeferson</option>
+      <option value="jivago">Jivago</option>
+      <option value="marcos">Marcos</option>
+      <option value="maykol">Maykol</option>
+      <option value="maylon">Maylon</option>
+    </select>
 
-  <select id="personagem2">
-    <option value="sekef">Sekef</option>
-    <option value="iallen">Iallen</option>
-    <option value="jeferson">Jeferson</option>
-    <option value="jivago">Jivago</option>
-    <option value="marcos">Marcos</option>
-    <option value="maykol">Maykol</option>
-    <option value="maylon">Maylon</option>
-  </select>
+    <button id="iniciar">Iniciar Torneio</button>
 
-  <button id="iniciar">Iniciar Torneio</button>
-
-  <h3>Campos de Batalha</h3>
+    <h3>Campos de Batalha</h3>
+    </div>
   <div id="campos-batalha"></div>
 
   <script type="module" src="./main.ts"></script>

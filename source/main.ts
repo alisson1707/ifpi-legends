@@ -109,8 +109,8 @@ function torneioSimultaneo(participantes: Personagem[]) {
             if (i + 1 >= competidores.length) {
                 vencedores.push(competidores[i]);
             } else {
-                const logDiv = criarLog(`Batalha: ${competidores[i].getNome()} VS ${competidores[i+1].getNome()}`);
-                const vencedor = batalhaSimples(competidores[i], competidores[i+1], logDiv);
+                const logDiv = criarLog(`Batalha: ${competidores[i].getNome()} VS ${competidores[i + 1].getNome()}`);
+                const vencedor = batalhaSimples(competidores[i], competidores[i + 1], logDiv);
                 vencedores.push(vencedor);
             }
         }
@@ -119,7 +119,9 @@ function torneioSimultaneo(participantes: Personagem[]) {
         rodada++;
     }
 
-    criarLog("Campeão").appendChild(document.createTextNode(`🏆 CAMPEÃO FINAL: ${competidores[0].getNome()} 🏆`));
+    criarLog("Campeão").appendChild(
+        document.createTextNode(`🏆 CAMPEÃO FINAL: ${competidores[0].getNome()} 🏆`)
+    );
 }
 
 // Mapeia selects para classes de personagens
