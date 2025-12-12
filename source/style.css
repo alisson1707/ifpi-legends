@@ -1,121 +1,42 @@
-/* ======== RESET ======== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
 body {
-  background: linear-gradient(135deg, #1f1c2c, #928dab);
-  min-height: 100vh;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30px;
+    background: #121212;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 20px;
 }
 
-/* ======== TÍTULO ======== */
 h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 10px #000;
+    text-align: center;
 }
 
-/* ======== SELEÇÃO DE PERSONAGEM ======== */
-.select-area {
-  background: rgba(0, 0, 0, 0.35);
-  padding: 20px 25px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.6);
-  margin-bottom: 25px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 300px;
+.painel {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    justify-content: center;
 }
 
-label {
-  font-size: 1.1rem;
-  font-weight: bold;
+select, button {
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
 }
 
-/* ======== SELECT ======== */
-select {
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-  background: #242424;
-  color: white;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-select:hover {
-  background: #333;
-}
-
-/* ======== BOTÃO ======== */
 button {
-  padding: 12px;
-  background: #ffca28;
-  color: #000;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    background: #4CAF50;
+    color: white;
+    cursor: pointer;
 }
 
 button:hover {
-  background: #ffb300;
-  transform: scale(1.05);
+    background: #45a049;
 }
 
-button:active {
-  transform: scale(0.97);
-}
-
-/* ======== LOG ======== */
-h2 {
-  margin: 20px 0 10px;
-  text-shadow: 1px 1px 8px #000;
-}
-
-.log-container {
-  width: 90%;
-  max-width: 600px;
-  height: 350px;
-  overflow-y: auto;
-  padding: 15px;
-  background: rgba(0, 0, 0, 0.35);
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.6);
-}
-
-/* Cada linha do log */
-#log p {
-  margin-bottom: 8px;
-  padding: 6px 8px;
-  background: rgba(255, 255, 255, 0.15);
-  border-left: 4px solid #ffca28;
-  border-radius: 4px;
-  animation: aparecer 0.3s ease;
-}
-
-/* Animação suave */
-@keyframes aparecer {
-  from {
-    opacity: 0;
-    transform: translateX(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.log {
+    background: #1e1e1e;
+    padding: 20px;
+    height: 400px;
+    overflow-y: auto;
+    border-radius: 8px;
+    border: 1px solid #333;
 }

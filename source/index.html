@@ -1,18 +1,28 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mini RPG</title>
+  <title>Batalha RPG</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <h1>Mini RPG – Escolha seu Personagem</h1>
+  <h1>Batalha RPG</h1>
 
-  <div class="select-area">
-    <label for="personagem">Selecione um personagem:</label>
+  <div class="painel">
+    <label>Seu personagem:</label>
     <select id="personagem">
+      <option value="sekef">Sekef</option>
+      <option value="iallen">Iallen</option>
+      <option value="jeferson">Jeferson</option>
+      <option value="jivago">Jivago</option>
+      <option value="marcos">Marcos</option>
+      <option value="maykol">Maykol</option>
+      <option value="maylon">Maylon</option>
+    </select>
+
+    <label>Escolha o inimigo:</label>
+    <select id="inimigo">
       <option value="sekef">Sekef</option>
       <option value="iallen">Iallen</option>
       <option value="jeferson">Jeferson</option>
@@ -25,8 +35,7 @@
     <button id="iniciar">Iniciar Batalha</button>
   </div>
 
-  <h2>Log da Batalha</h2>
-  <div id="log" class="log-container"></div>
+  <div id="log" class="log"></div>
 
   <script type="module" src="./main.ts"></script>
 </body>
