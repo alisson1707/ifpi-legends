@@ -1,62 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<title>IFPI Legends</title>
-<link rel="stylesheet" href="style.css">
-
-<style>
-    body {
-        font-family: Arial;
-        background: #222;
-        color: white;
-        padding: 20px;
-    }
-    .container {
-        display: flex;
-        justify-content: space-between;
-        padding: 20px;
-    }
-    .card {
-        padding: 20px;
-        border: 2px solid white;
-        width: 45%;
-        border-radius: 8px;
-        background: #333;
-    }
-    #log {
-        margin-top: 20px;
-        background: #111;
-        padding: 10px;
-        height: 250px;
-        overflow-y: auto;
-        border: 1px solid #444;
-    }
-    button {
-        padding: 10px 20px;
-        background: green;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 18px;
-    }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini RPG</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+  <h1>Mini RPG – Escolha seu Personagem</h1>
 
-<h1>Jogo IFPI Legends</h1>
+  <div class="select-area">
+    <label for="personagem">Selecione um personagem:</label>
+    <select id="personagem">
+      <option value="sekef">Sekef</option>
+      <option value="iallen">Iallen</option>
+      <option value="jeferson">Jeferson</option>
+      <option value="jivago">Jivago</option>
+      <option value="marcos">Marcos</option>
+      <option value="maykol">Maykol</option>
+      <option value="maylon">Maylon</option>
+    </select>
 
-<div class="container">
-    <div class="card" id="p1-card"></div>
-    <div class="card" id="p2-card"></div>
-</div>
+    <button id="iniciar">Iniciar Batalha</button>
+  </div>
 
-<button id="btn-batalhar">Iniciar Batalha</button>
+  <h2>Log da Batalha</h2>
+  <div id="log" class="log-container"></div>
 
-<h2>Log da batalha</h2>
-<div id="log"></div>
-
-<script type="module" src="./main.ts"></script>
+  <script type="module" src="./main.ts"></script>
 </body>
 </html>

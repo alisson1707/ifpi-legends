@@ -1,11 +1,14 @@
-import { Personagem } from "../personagens";
+import { Personagem } from "../personagem";
 
-export const Iallen = new Personagem(
-    "Iallen", // nome
-    100,      // hp
-    20,       // ataque
-    5,        // defesa
-    10,       // velocidade
-    "Guitarra do Trovão" // poder especial
-);
-
+export class Iallen extends Personagem {
+    constructor() {
+        super(
+            "Iallen",
+            100,     // hp
+            20,      // ataque
+            5,       // defesa
+            10,      // velocidade
+            "Guitarra do Trovão"
+        );
+    }
+}

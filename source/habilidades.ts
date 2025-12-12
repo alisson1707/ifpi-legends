@@ -1,5 +1,5 @@
 // habilidades.ts
-import { Personagem } from "./personagens";
+import { Personagem } from "./personagem";
 
 // Classe base abstrata
 export abstract class Habilidade {
@@ -63,5 +63,20 @@ export abstract class HabilidadeSuperHack extends Habilidade {
         this.usarDescricao = usarDescricao;
     }
 }
+export abstract class HabilidadeHellFlame extends Habilidade {
+    protected usarDescricao: string;
+    constructor(nome: string, danoBase: number, custoEnergia: number, usarDescricao: string) {
+        super(nome, danoBase, custoEnergia);
+        this.usarDescricao = usarDescricao;
+    }
+}
+export abstract class HabilidadeSuperForca extends Habilidade {
+    protected usarDescricao: string;
+    constructor(nome: string, danoBase: number, custoEnergia: number, usarDescricao: string) {
+        super(nome, danoBase, custoEnergia);
+        this.usarDescricao = usarDescricao;
+    }
+}
+
 
 // E assim por diante para HabilidadeEletricidade, HabilidadeSuperHack, etc.

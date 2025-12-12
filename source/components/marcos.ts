@@ -1,10 +1,14 @@
-import { Personagem } from "../personagens";
+import { Personagem } from "../personagem";
 
-export const Marcos = new Personagem(
-    "Marcos",
-    92,
-    35,
-    4,
-    10,
-    "Punho de Gelo"
-);
+export class Marcos extends Personagem {
+    constructor() {
+        super(
+            "Marcos",
+            92,
+            35,
+            4,
+            10,
+            "Punho de Gelo"
+        );
+    }
+}

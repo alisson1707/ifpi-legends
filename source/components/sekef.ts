@@ -1,10 +1,14 @@
-import { Personagem } from "../personagens";
+import { Personagem } from "../personagem";
 
-export const Sekef = new Personagem(
- "Sekef", // nome
- 95,// ataque
- 30,// hp
- 3, //defesa
- 12, // velocidade
- "Leitura Mental"
-);
+export class Sekef extends Personagem {
+    constructor() {
+        super(
+            "Sekef",
+            95,    // hp
+            30,    // ataque
+            3,     // defesa
+            12,    // velocidade
+            "Leitura Mental"
+        );
+    }
+}

@@ -1,75 +1,121 @@
-/* ===== ESTILO GERAL ===== */
+/* ======== RESET ======== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
 body {
-    margin: 0;
-    padding: 0;
-    background: #0a0a0f;
-    color: #e0e0ff;
-    font-family: "Orbitron", sans-serif;
-    letter-spacing: 1px;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  min-height: 100vh;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
 }
 
-/* ===== TÍTULOS ===== */
-h1, h2 {
-    text-align: center;
-    color: #7f5cff;
-    text-shadow: 0 0 10px #7f5cff, 0 0 25px #a78bfa;
+/* ======== TÍTULO ======== */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 10px #000;
 }
 
-/* ===== CONTAINER CENTRAL ===== */
-.container {
-    width: 90%;
-    max-width: 600px;
-    margin: 40px auto;
-    background: rgba(20, 20, 35, 0.7);
-    padding: 25px;
-    border-radius: 20px;
-    border: 2px solid #7f5cff;
-    box-shadow: 0 0 15px #7f5cff55;
+/* ======== SELEÇÃO DE PERSONAGEM ======== */
+.select-area {
+  background: rgba(0, 0, 0, 0.35);
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 300px;
 }
 
-/* ===== BOTÃO GAMER ===== */
+label {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* ======== SELECT ======== */
+select {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  background: #242424;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+select:hover {
+  background: #333;
+}
+
+/* ======== BOTÃO ======== */
 button {
-    width: 100%;
-    padding: 15px;
-    margin-top: 15px;
-    background: linear-gradient(45deg, #6a00ff, #b400ff);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: 0.2s;
-    box-shadow: 0 0 10px #8400ff, 0 0 25px #b400ff;
+  padding: 12px;
+  background: #ffca28;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
 
 button:hover {
-    transform: scale(1.04);
-    box-shadow: 0 0 15px #b400ff, 0 0 30px #ff00ff;
+  background: #ffb300;
+  transform: scale(1.05);
 }
 
-/* ===== INPUTS ===== */
-input, select {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    background: #1a1a27;
-    border: 1px solid #7f5cff;
-    color: #e0e0ff;
-    border-radius: 10px;
-    outline: none;
+button:active {
+  transform: scale(0.97);
 }
 
-input:focus, select:focus {
-    box-shadow: 0 0 10px #7f5cff;
+/* ======== LOG ======== */
+h2 {
+  margin: 20px 0 10px;
+  text-shadow: 1px 1px 8px #000;
 }
 
-/* ===== RESULTADOS ===== */
-.resultado {
-    margin-top: 20px;
-    padding: 15px;
-    background: rgba(30, 30, 50, 0.6);
-    border-radius: 15px;
-    border: 1px solid #7f5cff55;
-    box-shadow: 0 0 12px #7f5cff33;
-    font-size: 16px;
+.log-container {
+  width: 90%;
+  max-width: 600px;
+  height: 350px;
+  overflow-y: auto;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+}
+
+/* Cada linha do log */
+#log p {
+  margin-bottom: 8px;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border-left: 4px solid #ffca28;
+  border-radius: 4px;
+  animation: aparecer 0.3s ease;
+}
+
+/* Animação suave */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
