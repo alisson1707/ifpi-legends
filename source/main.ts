@@ -12,7 +12,9 @@ const btn = document.getElementById("iniciar") as HTMLButtonElement;
 const select1 = document.getElementById("personagem1") as HTMLSelectElement;
 const select2 = document.getElementById("personagem2") as HTMLSelectElement;
 
-// Cria container de log para cada batalha
+// =====================
+// Funções auxiliares
+// =====================
 function criarLog(titulo: string): HTMLDivElement {
     const container = document.createElement("div");
     container.className = "batalha";
@@ -23,7 +25,6 @@ function criarLog(titulo: string): HTMLDivElement {
     return container;
 }
 
-// Cria barra de HP para cada personagem
 function criarBarraHp(personagem: Personagem, container: HTMLDivElement): HTMLDivElement {
     const hpContainer = document.createElement("div");
     hpContainer.className = "hp-container";
@@ -47,7 +48,6 @@ function criarBarraHp(personagem: Personagem, container: HTMLDivElement): HTMLDi
     return barraInterna;
 }
 
-// Atualiza visualmente a barra de HP
 function atualizarBarraHp(personagem: Personagem, barra: HTMLDivElement) {
     const porcentagem = (personagem.getHp() / personagem.getHpMax()) * 100;
     barra.style.width = `${porcentagem}%`;
@@ -56,7 +56,9 @@ function atualizarBarraHp(personagem: Personagem, barra: HTMLDivElement) {
     else barra.style.backgroundColor = "red";
 }
 
+// =====================
 // Batalha 1x1
+// =====================
 function batalhaSimples(p1: Personagem, p2: Personagem, logContainer: HTMLDivElement): Personagem {
     let turno = 1;
 
@@ -78,16 +80,18 @@ function batalhaSimples(p1: Personagem, p2: Personagem, logContainer: HTMLDivEle
         const segundo = primeiro === p1 ? p2 : p1;
 
         // Ataque do primeiro
-        const ataque1 = primeiro.atacar(segundo);
-        escreverLog(`${primeiro.getNome()} atacou usando ${ataque1}! HP de ${segundo.getNome()}: ${segundo.getHp()}`);
-        atualizarBarraHp(segundo, barraP2);
+        const res1 = primeiro.atacar(segundo);
+        escreverLog(res1.descricaoAtaque);
+        if (res1.defesa) escreverLog(res1.defesa);
+        if (res1.dano) atualizarBarraHp(segundo, barraP2);
 
         if (!segundo.estaVivo()) break;
 
         // Ataque do segundo
-        const ataque2 = segundo.atacar(primeiro);
-        escreverLog(`${segundo.getNome()} atacou usando ${ataque2}! HP de ${primeiro.getNome()}: ${primeiro.getHp()}`);
-        atualizarBarraHp(primeiro, barraP1);
+        const res2 = segundo.atacar(primeiro);
+        escreverLog(res2.descricaoAtaque);
+        if (res2.defesa) escreverLog(res2.defesa);
+        if (res2.dano) atualizarBarraHp(primeiro, barraP1);
 
         turno++;
     }
@@ -97,7 +101,9 @@ function batalhaSimples(p1: Personagem, p2: Personagem, logContainer: HTMLDivEle
     return vencedor;
 }
 
+// =====================
 // Torneio simultâneo
+// =====================
 function torneioSimultaneo(participantes: Personagem[]) {
     let rodada = 1;
     let competidores = [...participantes];
@@ -109,7 +115,7 @@ function torneioSimultaneo(participantes: Personagem[]) {
             if (i + 1 >= competidores.length) {
                 vencedores.push(competidores[i]);
             } else {
-                const logDiv = criarLog(`Batalha: ${competidores[i].getNome()} VS ${competidores[i + 1].getNome()}`);
+                const logDiv = criarLog(`Rodada ${rodada}: ${competidores[i].getNome()} VS ${competidores[i + 1].getNome()}`);
                 const vencedor = batalhaSimples(competidores[i], competidores[i + 1], logDiv);
                 vencedores.push(vencedor);
             }
@@ -119,12 +125,14 @@ function torneioSimultaneo(participantes: Personagem[]) {
         rodada++;
     }
 
-    criarLog("Campeão").appendChild(
-        document.createTextNode(`🏆 CAMPEÃO FINAL: ${competidores[0].getNome()} 🏆`)
+    criarLog("🏆 Campeão Final 🏆").appendChild(
+        document.createTextNode(`🏆 CAMPEÃO: ${competidores[0].getNome()} 🏆`)
     );
 }
 
-// Mapeia selects para classes de personagens
+// =====================
+// Mapeamento dos personagens
+// =====================
 const mapaPersonagens: Record<string, () => Personagem> = {
     sekef: () => new Sekef(),
     iallen: () => new Iallen(),
@@ -135,7 +143,9 @@ const mapaPersonagens: Record<string, () => Personagem> = {
     maylon: () => new Maylon()
 };
 
+// =====================
 // Botão iniciar
+// =====================
 btn.addEventListener("click", () => {
     camposBatalhaDiv.innerHTML = "";
 
